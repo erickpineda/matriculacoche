@@ -8,9 +8,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringReader;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
- * Hello world!
+ * @author Erick Pineda Método principal para el programa de leer matriculas.
  *
  */
 public class App {
@@ -19,6 +21,12 @@ public class App {
 
 	}
 
+	/**
+	 * Método que se encarga de leer el fichero de texto.
+	 * 
+	 * @param fichero
+	 *            Path al fichero que se leerá
+	 */
 	public static void matriculasCoche(String fichero) {
 
 		BufferedReader br = null;
@@ -28,30 +36,71 @@ public class App {
 			Reader leer = new InputStreamReader(entrada);
 			br = new BufferedReader(leer);
 
-			String lineaFichero;
+			String lineaFichero = null;
+			clausulasM(br, lineaFichero);
+		} else {
+			System.out.println("***NO SE HA PODIDO LEER EL FICHERO***");
+		}
+	}
 
+	/**
+	 * Método que recoge las cláusulas try/catch del programa.
+	 * 
+	 * @param br
+	 *            Para leer el fichero de texto
+	 * @param linea
+	 *            Variable que recogera en String el path del fichero
+	 */
+	public static void clausulasM(BufferedReader br, String linea) {
+
+		try {
+			linea = br.readLine();
+
+			matriculas(br, linea);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
 			try {
-				lineaFichero = br.readLine();
-
-				while (lineaFichero != null) {
-
-					String[] array = lineaFichero.split(" ");
-					for (int i = array.length - 1; i >= 0; i--) {
-
-						System.out.print(array[i]);
-
-					}
-					System.out.println(" ");
-					lineaFichero = br.readLine();
-				}
-
+				br.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
 		}
+	}
 
+	/**
+	 * Método que se encarga de hacer las distintas operaciones del programa, y
+	 * compara que se cumplan una serie de reglas especificas para luego
+	 * mostrarlas por pantalla.
+	 * 
+	 * @param br
+	 *            Para leer el fichero de texto
+	 * @param linea
+	 *            Variable que recogera en String el path del fichero
+	 * @throws IOException
+	 *             Ya otro método se encargará de las cláusulas del programa.
+	 */
+	public static void matriculas(BufferedReader br, String linea)
+			throws IOException {
+
+		while (linea != null) {
+
+			String[] array = linea.split(" ");
+
+			// No leerá lineas que no contengan nada
+			if (!linea.trim().equals("")) {
+
+				// Expresion regular que la línea del fichero deberá cumplir
+				Pattern exre = Pattern.compile("[0-9]{4}( )[A-Za-z]{2,3}");
+				Matcher mat = exre.matcher(linea);
+
+				if (mat.matches()) {
+					System.out.print(array[1] + " " + array[0] + "\n");
+				}
+			}
+			linea = br.readLine();
+		}
 	}
 
 }
