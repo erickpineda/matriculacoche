@@ -1,13 +1,10 @@
 package net.erickpineda.MatriculaCoche;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.io.StringReader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -25,7 +22,7 @@ public class App {
 	 * Método que se encarga de leer el fichero de texto.
 	 * 
 	 * @param fichero
-	 *            Path al fichero que se leerá
+	 *            Path al fichero que se leerá.
 	 */
 	public static void matriculasCoche(String fichero) {
 
@@ -47,9 +44,9 @@ public class App {
 	 * Método que recoge las cláusulas try/catch del programa.
 	 * 
 	 * @param br
-	 *            Para leer el fichero de texto
+	 *            Para leer el fichero de texto.
 	 * @param linea
-	 *            Variable que recogera en String el path del fichero
+	 *            Variable que recogerá en String el path del fichero.
 	 */
 	public static void clausulasM(BufferedReader br, String linea) {
 
@@ -70,14 +67,14 @@ public class App {
 	}
 
 	/**
-	 * Método que se encarga de hacer las distintas operaciones del programa, y
-	 * compara que se cumplan una serie de reglas especificas para luego
+	 * Método que se encarga de hacer las distintas operaciones del programa.
+	 * Compara que se cumpla una expresión regular requerida, para luego
 	 * mostrarlas por pantalla.
 	 * 
 	 * @param br
-	 *            Para leer el fichero de texto
+	 *            Para leer el fichero de texto.
 	 * @param linea
-	 *            Variable que recogera en String el path del fichero
+	 *            Variable que recogera en String el path del fichero.
 	 * @throws IOException
 	 *             Ya otro método se encargará de las cláusulas del programa.
 	 */
@@ -88,7 +85,7 @@ public class App {
 
 			String[] array = linea.split(" ");
 
-			// No leerá lineas que no contengan nada
+			// No leerá líneas que no contengan nada, ej: saltos de línea
 			if (!linea.trim().equals("")) {
 
 				// Expresion regular que la línea del fichero deberá cumplir
